@@ -2,18 +2,17 @@
   hosts: all
   become: yes
   tasks:
-    - name: Copy file to tomcat user
+    - name: Copy file to Tomcat user
       copy:
         src: /var/lib/jenkins/workspace/deploy/tomcat-users.xml
-        dest: /opt/apache-tomcat-10.1.28/conf/
+        dest: /opt/apache-tomcat-10.1.28/conf/tomcat-users.xml
 
-   -  name: Copy file to context.xml
+    - name: Copy file to context.xml for host-manager
       copy:
         src: /var/lib/jenkins/workspace/deploy/context.xml
-        dest: /opt/apache-tomcat-10.1.28/webapps/host-manager/META-INF/
+        dest: /opt/apache-tomcat-10.1.28/webapps/host-manager/META-INF/context.xml
 
-   -  name: Copy file to context.xml 2
+    - name: Copy file to context.xml for manager
       copy:
         src: /var/lib/jenkins/workspace/deploy/context.xml
-        dest: /opt/apache-tomcat-10.1.28/webapps/manager/META-INF/
-  
+        dest: /opt/apache-tomcat-10.1.28/webapps/manager/META-INF/context.xml
