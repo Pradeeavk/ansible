@@ -1,0 +1,28 @@
+- name: Tomcat install
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Install Java
+      shell: yum install java-11 -y
+
+    - name: Download Tomcat
+      get_url:
+        url: https://dlcdn.apache.org/tomcat/tomcat-10/v10.1.28/bin/apache-tomcat-10.1.28.tar.gz
+        dest: /opt/apache-tomcat-10.1.28.tar.gz
+
+    - name: Extract Tomcat
+      unarchive:
+        src: /opt/apache-tomcat-10.1.28.tar.gz
+        dest: /opt/
+        remote_src: yes
+
+    - name: Download WAR file
+      get_url:
+        url: https://tomcat.apache.org/tomcat-7.0-doc/appdev/sample/sample.war
+        dest: /opt/apache-tomcat-10.1.28/webapps/sample.war
+
+    - name: Set execute permissions and start Tomcat
+      shell: |
+        chmod +x /opt/apache-tomcat-10.1.28/bin/*.sh
+        /opt/apache-tomcat-10.1.28/bin/startup.sh
