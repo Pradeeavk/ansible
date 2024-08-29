@@ -1,0 +1,19 @@
+- name: Copy files with Ansible
+  hosts: all
+  become: yes
+  tasks:
+    - name: Copy file to tomcat user
+      copy:
+        src: /var/lib/jenkins/workspace/deploy/tomcat-users.xml
+        dest: /opt/apache-tomcat-10.1.28/conf/
+
+   -  name: Copy file to context.xml
+      copy:
+        src: /var/lib/jenkins/workspace/deploy/context.xml
+        dest: /opt/apache-tomcat-10.1.28/webapps/host-manager/META-INF/
+
+   -  name: Copy file to context.xml 2
+      copy:
+        src: /var/lib/jenkins/workspace/deploy/context.xml
+        dest: /opt/apache-tomcat-10.1.28/webapps/manager/META-INF/
+  
